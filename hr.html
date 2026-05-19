@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMVG Health HR Portal</title>
+  <style>
+    :root{
+      --blue:#003b82;
+      --blue-dark:#002e68;
+      --blue-soft:#eaf3ff;
+      --green:#0e8b77;
+      --purple:#5d3fd3;
+      --orange:#f47b20;
+      --text:#0b1f3a;
+      --muted:#5d6b7a;
+      --border:#dbe3ef;
+      --card:#ffffff;
+      --shadow:0 8px 24px rgba(0,31,84,.08);
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      background:#f7f9fc;
+      line-height:1.45;
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+
+    .topbar{
+      background:linear-gradient(90deg,var(--blue-dark),var(--blue));
+      color:#fff;
+      height:66px;
+      display:flex;
+      align-items:center;
+      padding:0 28px;
+      gap:26px;
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:210px;
+    }
+
+    .star{
+      width:34px;height:34px;
+      background:linear-gradient(135deg,#ffc642,#0b74d1);
+      clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 56%,79% 91%,50% 70%,21% 91%,32% 56%,2% 35%,39% 35%);
+    }
+
+    .brand strong{font-size:22px;letter-spacing:.5px}
+    .brand span{font-size:13px;display:block;margin-top:-5px}
+
+    .portal-title{
+      font-size:22px;
+      font-weight:700;
+      padding-left:18px;
+      border-left:1px solid rgba(255,255,255,.35);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:26px;
+      flex:1;
+      justify-content:center;
+      font-size:15px;
+      font-weight:600;
+    }
+
+    nav a.active{
+      border-bottom:3px solid #fff;
+      padding-bottom:20px;
+    }
+
+    .top-icons{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      font-size:20px;
+    }
+
+    .avatar{
+      width:34px;height:34px;border-radius:50%;
+      background:linear-gradient(135deg,#ffd5c2,#7a3d2a);
+      border:2px solid rgba(255,255,255,.8);
+    }
+
+    .hero{
+      min-height:275px;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.91) 45%,rgba(255,255,255,.15) 72%),
+        url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80");
+      background-size:cover;
+      background-position:center right;
+      display:flex;
+      align-items:center;
+      padding:42px 6%;
+    }
+
+    .hero-content{max-width:570px}
+    .eyebrow{font-size:27px;font-weight:700;color:var(--blue)}
+    .hero h1{font-size:48px;line-height:1.05;color:var(--blue-dark);margin:4px 0 10px}
+    .hero h2{font-size:22px;font-weight:500;margin-bottom:22px}
+    .hero p{font-size:15px;max-width:500px;margin-bottom:26px}
+
+    .hero-actions{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      max-width:620px;
+      box-shadow:var(--shadow);
+      border-radius:8px;
+      overflow:hidden;
+    }
+
+    .hero-action{
+      background:#fff;
+      border-right:1px solid var(--border);
+      padding:15px 17px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size:14px;
+      min-height:70px;
+    }
+
+    .hero-action:last-child{border-right:0}
+    .icon{
+      width:44px;height:44px;border-radius:7px;
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-size:24px;flex:0 0 44px;
+    }
+    .i-blue{background:#1457d9}.i-green{background:#25a747}.i-purple{background:#6a45ce}.i-orange{background:#f27622}
+
+    .container{
+      max-width:1160px;
+      margin:24px auto 0;
+      padding:0 20px 36px;
+    }
+
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:0 2px 12px rgba(0,0,0,.025);
+      padding:18px;
+    }
+
+    .section-head{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:16px;
+    }
+    .section-head h3{font-size:21px;color:var(--blue-dark)}
+    .see{font-size:13px;font-weight:700;color:#014fa7}
+
+    .news-item{
+      display:grid;
+      grid-template-columns:132px 1fr;
+      gap:18px;
+      margin-bottom:18px;
+      align-items:center;
+    }
+    .news-img{
+      height:82px;border-radius:7px;overflow:hidden;background:#e8f1ff;
+    }
+    .news-img.calendar{
+      background:linear-gradient(#d9efff,#fff);
+      position:relative;
+    }
+    .news-img.calendar:before{
+      content:"";position:absolute;top:14px;left:18px;right:18px;height:52px;
+      background:repeating-linear-gradient(90deg,#fff 0 18px,#e8eef8 18px 20px),
+                 repeating-linear-gradient(0deg,transparent 0 13px,#d7dfeb 13px 15px);
+      border:1px solid #ccd9ea;border-radius:4px;
+    }
+    .news-img.welcome{
+      display:flex;align-items:center;justify-content:center;
+      color:#0f5da8;font-size:20px;font-weight:900;
+      background:linear-gradient(135deg,#e9f7ff,#a8daf5);
+    }
+    .news-img.hipaa{
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-size:26px;font-weight:900;
+      background:linear-gradient(135deg,#0075c9,#002f79);
+    }
+    .news-item h4{font-size:16px;margin-bottom:5px}
+    .news-item p{font-size:13.5px;color:#22354c}
+    .date{font-size:12.5px;color:#7b8795;margin-top:5px}
+
+    .event-item{
+      display:grid;grid-template-columns:78px 1fr;gap:20px;
+      margin-bottom:21px;align-items:center;
+    }
+    .event-date{
+      border:1px solid var(--border);border-radius:7px;height:82px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      background:#fff;
+    }
+    .event-date span{font-weight:800;font-size:14px}
+    .event-date strong{font-size:31px;color:#111}
+    .event-item h4{color:#064aa2;font-size:16px;margin-bottom:6px}
+    .event-item p{font-size:13.5px}
+
+    .quick{
+      margin:22px 0;
+    }
+    .quick-grid{
+      display:grid;
+      grid-template-columns:repeat(8,1fr);
+      gap:13px;
+    }
+    .quick-link{
+      background:#f5fbfb;
+      border:1px solid #dfeaf1;
+      border-radius:7px;
+      min-height:66px;
+      display:flex;align-items:center;gap:10px;
+      padding:12px;
+      font-size:13px;
+      font-weight:700;
+    }
+    .quick-link b{font-size:25px;color:#00796b}
+
+    .info-card{
+      min-height:235px;
+      overflow:hidden;
+      position:relative;
+    }
+    .info-card h3{font-size:23px;margin-bottom:8px}
+    .info-card p{font-size:14px;max-width:380px}
+    .green-card{background:linear-gradient(135deg,#effdf9,#fff)}
+    .blue-card{background:linear-gradient(135deg,#f2f8ff,#fff)}
+    .purple-card{background:linear-gradient(135deg,#fbf5ff,#fff)}
+    .orange-card{background:linear-gradient(135deg,#fff8ea,#fff)}
+    .green-card h3{color:#08776b}.blue-card h3{color:#064aa2}.purple-card h3{color:#4b2fb6}.orange-card h3{color:#9a5310}
+
+    .mini-list{margin-top:18px;display:grid;gap:10px}
+    .mini-list div{font-size:13.5px;display:flex;gap:10px;align-items:flex-start}
+    .mini-list b{color:#006a5e}
+
+    .side-graphic{
+      position:absolute;right:20px;bottom:20px;
+      width:210px;height:130px;border-radius:16px;
+      background:rgba(20,117,217,.08);
+      display:flex;align-items:center;justify-content:center;
+      font-size:70px;
+    }
+
+    .btn{
+      display:inline-block;margin-top:15px;
+      background:#004f9e;color:#fff;
+      padding:7px 28px;border-radius:4px;font-size:13px;font-weight:700;
+    }
+    .btn.outline{background:#fff;color:#004f9e;border:1px solid #80aee4}
+    .btn.orange{background:#d67c00}
+
+    .train-wrap{
+      display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:center;
+    }
+    .training-list{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-top:18px;
+      font-size:13.5px;
+    }
+    .video-card{
+      background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e1dff2;
+    }
+    .video-img{
+      height:105px;background:linear-gradient(135deg,#dce7f4,#6d8fb5);
+      display:flex;align-items:center;justify-content:center;font-size:45px;
+    }
+    .video-card div:last-child{padding:10px;font-size:12px}
+
+    .policy-list{margin-top:14px;display:grid;gap:7px;font-size:13.5px}
+    .policy-list div:before{content:"📁 ";}
+
+    .recognition-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    }
+    .recognition-box{
+      border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;background:#fff;
+    }
+    .photo{
+      height:72px;border-radius:7px;background:linear-gradient(135deg,#ffe1d5,#c5795f);
+      margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:38px;
+    }
+    .recognition-box h4{font-size:13px}.recognition-box p{font-size:11px;color:#35475c;margin-top:4px}
+
+    .contacts-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:12px;
+    }
+    .contact{
+      display:flex;gap:10px;align-items:center;border:1px solid var(--border);
+      border-radius:8px;padding:10px;background:#fff;
+    }
+    .contact .face{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ffd5c2,#684035)}
+    .contact h4{font-size:13px}.contact p{font-size:11.5px;color:#536273}
+    .contact small{color:#004f9e}
+
+    .well-item{
+      display:grid;grid-template-columns:78px 1fr;gap:12px;margin-bottom:11px;
+    }
+    .well-img{height:54px;border-radius:6px;background:linear-gradient(135deg,#e6ffd9,#78b96b)}
+    .well-item h4{font-size:13.5px}.well-item p{font-size:12px;color:#536273}
+
+    .values{
+      background:linear-gradient(90deg,var(--blue-dark),var(--blue));
+      color:#fff;
+      display:grid;grid-template-columns:repeat(5,1fr);
+      padding:13px 8%;
+      font-weight:600;
+      gap:20px;
+      text-align:center;
+    }
+
+    footer{
+      background:#fff;
+      padding:14px 8%;
+      display:flex;justify-content:space-between;
+      color:#536273;font-size:12px;
+    }
+
+    @media(max-width:1050px){
+      nav{display:none}
+      .portal-title{flex:1}
+      .hero h1{font-size:40px}
+      .quick-grid{grid-template-columns:repeat(4,1fr)}
+      .side-graphic{opacity:.35}
+    }
+
+    @media(max-width:800px){
+      .topbar{height:auto;padding:14px;gap:14px;flex-wrap:wrap}
+      .brand{min-width:auto}
+      .portal-title{border-left:0;padding-left:0;font-size:19px}
+      .hero{
+        padding:32px 20px;
+        background:
+          linear-gradient(rgba(255,255,255,.94),rgba(255,255,255,.94)),
+          url("https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80");
+      }
+      .eyebrow{font-size:21px}
+      .hero h1{font-size:34px}
+      .hero h2{font-size:18px}
+      .hero-actions{grid-template-columns:1fr 1fr}
+      .grid-2,.grid-3{grid-template-columns:1fr}
+      .quick-grid{grid-template-columns:1fr 1fr}
+      .train-wrap{grid-template-columns:1fr}
+      .values{grid-template-columns:1fr;gap:8px}
+      footer{flex-direction:column;gap:8px;text-align:center}
+    }
+
+    @media(max-width:520px){
+      .container{padding:0 12px 25px}
+      .card{padding:14px}
+      .hero-actions{grid-template-columns:1fr}
+      .quick-grid{grid-template-columns:1fr}
+      .news-item,.event-item,.well-item{grid-template-columns:1fr}
+      .news-img{width:100%}
+      .contacts-grid,.recognition-grid,.training-list{grid-template-columns:1fr}
+      .hero h1{font-size:29px}
+      .top-icons{display:none}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="star"></div>
+      <div><strong>MMVG</strong><span>HEALTH</span></div>
+    </div>
+    <div class="portal-title">HR Portal</div>
+    <nav>
+      <a class="active" href="#">Home</a>
+      <a href="#">HR⌄</a>
+      <a href="#">Policies⌄</a>
+      <a href="#">Training</a>
+      <a href="#">Employee Services⌄</a>
+      <a href="#">Forms & Requests⌄</a>
+      <a href="#">Contacts</a>
+    </nav>
+    <div class="top-icons">
+      <span>⌕</span><span>⚙</span><span>?</span><div class="avatar"></div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Welcome to</div>
+      <h1>MMVG Health HR Portal</h1>
+      <h2>Supporting Our People, Policies, Growth & Success</h2>
+      <p>Your one-stop destination for employee resources, leave requests, payroll, training, compliance and workplace support.</p>
+
+      <div class="hero-actions">
+        <a class="hero-action" href="#"><span class="icon i-blue">📖</span>Employee
+Handbook</a>
+        <a class="hero-action" href="#"><span class="icon i-green">▣</span>Apply
+Leave</a>
+        <a class="hero-action" href="#"><span class="icon i-purple">🎓</span>Training
+Center</a>
+        <a class="hero-action" href="#"><span class="icon i-orange">$</span>Payroll &
+Benefits</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <section class="grid-2">
+      <div class="card">
+        <div class="section-head"><h3>HR Announcements</h3><a class="see" href="#">See all</a></div>
+
+        <div class="news-item">
+          <div class="news-img calendar"></div>
+          <div>
+            <h4>New Holiday Calendar 2024</h4>
+            <p>The holiday calendar for 2024 has been published. Please check and plan your leaves accordingly.</p>
+            <div class="date">May 21, 2024</div>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-img welcome">WELCOME
+ABOARD</div>
+          <div>
+            <h4>Welcome Our New Team Members!</h4>
+            <p>Let’s join hands to welcome our new team members to MMVG Health family.</p>
+            <div class="date">May 20, 2024</div>
+          </div>
+        </div>
+
+        <div class="news-item">
+          <div class="news-img hipaa">HIPAA</div>
+          <div>
+            <h4>HIPAA Compliance Reminder</h4>
+            <p>Please complete your annual HIPAA training before May 31, 2024.</p>
+            <div class="date">May 18, 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head"><h3>Upcoming Events</h3><a class="see" href="#">See all</a></div>
+
+        <div class="event-item">
+          <div class="event-date"><span>MAY</span><strong>24</strong></div>
+          <div>
+            <h4>Team Meeting – RCM Operations</h4>
+            <p>May 24, 2024 • 10:00 AM – 11:00 AM
+Conference Room / Teams</p>
+          </div>
+        </div>
+
+        <div class="event-item">
+          <div class="event-date"><span>MAY</span><strong>27</strong></div>
+          <div>
+            <h4>Memorial Day – Holiday</h4>
+            <p>May 27, 2024 • All Day
+Company Holiday</p>
+          </div>
+        </div>
+
+        <div class="event-item">
+          <div class="event-date"><span>MAY</span><strong>31</strong></div>
+          <div>
+            <h4>HIPAA Training (Mandatory)</h4>
+            <p>May 31, 2024 • 02:00 PM – 03:30 PM
+Training Room / Online</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card quick">
+      <div class="section-head"><h3>Quick Links</h3></div>
+      <div class="quick-grid">
+        <a class="quick-link" href="#"><b>▣</b>Apply Leave</a>
+        <a class="quick-link" href="#"><b>♙</b>Attendance Portal</a>
+        <a class="quick-link" href="#"><b>📘</b>Employee Handbook</a>
+        <a class="quick-link" href="#"><b>$</b>Payroll</a>
+        <a class="quick-link" href="#"><b>🔷</b>Microsoft Teams</a>
+        <a class="quick-link" href="#"><b>✉</b>Outlook Mail</a>
+        <a class="quick-link" href="#"><b>🎓</b>Training Center</a>
+        <a class="quick-link" href="#"><b>🎧</b>IT Support Ticket</a>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card info-card green-card">
+        <h3>Leave & Attendance</h3>
+        <p>Submit leave requests, check holiday calendar, attendance policy and work hours.</p>
+        <div class="mini-list">
+          <div><b>◷</b><span><strong>Office Timings</strong>
+Monday – Friday | 9:00 AM – 6:00 PM</span></div>
+          <div><b>◷</b><span><strong>Attendance Guidelines</strong>
+Regular attendance is essential. Inform your manager for planned leave.</span></div>
+          <div><b>▣</b><span><strong>Holiday Calendar</strong>
+View full year holiday calendar.</span></div>
+        </div>
+        <div class="side-graphic">📅</div>
+        <a class="btn" href="#">View All</a>
+      </div>
+
+      <div class="card info-card blue-card">
+        <h3>Payroll & Benefits</h3>
+        <p>Access payroll details, benefits, insurance information and reimbursement forms.</p>
+        <div class="mini-list">
+          <div><b>▣</b><span>Payroll Schedule</span></div>
+          <div><b>▣</b><span>Salary Slip Access</span></div>
+          <div><b>◇</b><span>Insurance & Benefits</span></div>
+          <div><b>▣</b><span>Reimbursement Form</span></div>
+        </div>
+        <div class="side-graphic">🐷</div>
+        <a class="btn outline" href="#">View All</a>
+      </div>
+
+      <div class="card info-card purple-card">
+        <h3>Training & Development</h3>
+        <p>Enhance your skills with our role-based training and professional development programs.</p>
+        <div class="train-wrap">
+          <div class="training-list">
+            <div>♙ Credentialing Training</div>
+            <div>✚ HIPAA Compliance</div>
+            <div>♙ RCM Billing Training</div>
+            <div>✉ Patient Communication</div>
+            <div>♙ AR Follow-up</div>
+            <div>♙ Soft Skills</div>
+            <div>✚ HIPAA Compliance</div>
+          </div>
+          <div class="video-card">
+            <div class="video-img">💻</div>
+            <div>Mandatory
+<strong>HIPAA Training</strong>
+<a class="btn" href="#">Start Training</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card info-card orange-card">
+        <h3>Policies Center</h3>
+        <p>Stay informed about company policies, compliance requirements and guidelines.</p>
+        <div class="policy-list">
+          <div>HR Policies</div>
+          <div>Compliance Policies</div>
+          <div>IT Policies</div>
+          <div>Security Policies</div>
+          <div>Employee Conduct</div>
+        </div>
+        <div class="side-graphic">📋</div>
+        <a class="btn orange" href="#">View All Policies</a>
+      </div>
+    </section>
+
+    <section class="grid-3" style="margin-top:20px">
+      <div class="card">
+        <div class="section-head"><h3>Employee Recognition</h3></div>
+        <p style="font-size:13px;margin-bottom:14px">Celebrating our people and their achievements.</p>
+        <div class="recognition-grid">
+          <div class="recognition-box"><div class="photo">👩</div><h4>Employee of the Month</h4><p>Priya Sharma
+April 2024</p></div>
+          <div class="recognition-box"><div class="photo">🏆</div><h4>Team Achievement</h4><p>RCM – AR Team
+Outstanding Performance</p></div>
+          <div class="recognition-box"><div class="photo">🎈</div><h4>Happy Birthday!</h4><p>Wishing you a wonderful year ahead!</p></div>
+        </div>
+        <a class="btn" href="#">View All</a>
+      </div>
+
+      <div class="card">
+        <div class="section-head"><h3>HR Contacts</h3></div>
+        <p style="font-size:13px;margin-bottom:14px">Reach out to the HR team for any assistance.</p>
+        <div class="contacts-grid">
+          <div class="contact"><div class="face"></div><div><h4>Neha Verma</h4><p>HR Manager</p><small>✉ neha.verma@mmvg.com</small></div></div>
+          <div class="contact"><div class="face"></div><div><h4>Rahul Mehta</h4><p>Payroll Specialist</p><small>✉ payroll@mmvg.com</small></div></div>
+          <div class="contact"><div class="face"></div><div><h4>IT Support Team</h4><p>Support</p><small>✉ it.support@mmvg.com</small></div></div>
+          <div class="contact"><div class="face"></div><div><h4>Escalation Contact</h4><p>Management</p><small>✉ escalation@mmvg.com</small></div></div>
+        </div>
+        <a class="btn outline" href="#">View All Contacts</a>
+      </div>
+
+      <div class="card">
+        <div class="section-head"><h3>Wellness & Engagement</h3></div>
+        <p style="font-size:13px;margin-bottom:14px">Your well-being matters to us.</p>
+        <div class="well-item"><div class="well-img"></div><div><h4>Wellness Tips</h4><p>Health tips for a better and happier you.</p></div></div>
+        <div class="well-item"><div class="well-img"></div><div><h4>Team Events</h4><p>Check out our recent team events and celebrations.</p></div></div>
+        <div class="well-item"><div class="well-img"></div><div><h4>Festival Celebrations</h4><p>Moments from our festival celebrations.</p></div></div>
+        <a class="btn" href="#">View All</a>
+      </div>
+    </section>
+  </main>
+
+  <section class="values">
+    <div>◎ People First</div>
+    <div>♢ Integrity</div>
+    <div>▱ Excellence</div>
+    <div>♙ Teamwork</div>
+    <div>♡ Compassion</div>
+  </section>
+
+  <footer>
+    <div>© 2024 MMVG Health. All rights reserved.</div>
+    <div>Privacy Policy &nbsp;&nbsp;&nbsp; Terms of Use</div>
+  </footer>
+
+</body>
+</html>
