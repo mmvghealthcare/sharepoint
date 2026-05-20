@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCM Training Center</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #ffffff;
+      color: #1f2933;
+      font-size: 14px;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 18px;
+      padding: 10px 18px 20px;
+      max-width: 1280px;
+      margin: auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #00726c, #005e63);
+      border-radius: 7px;
+      color: white;
+      min-height: 215px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      align-items: center;
+      overflow: hidden;
+      padding: 32px 40px;
+      margin-bottom: 18px;
+    }
+
+    .hero h4 {
+      font-size: 25px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .hero-art {
+      border-left: 1px solid rgba(255,255,255,0.45);
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+    }
+
+    .books {
+      position: relative;
+      width: 95px;
+      height: 65px;
+    }
+
+    .book {
+      height: 15px;
+      border-radius: 4px;
+      background: white;
+      margin: 7px 0;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+    }
+
+    .monitor {
+      width: 170px;
+      height: 112px;
+      background: #dff4f8;
+      border: 10px solid #12323b;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .cap {
+      width: 76px;
+      height: 34px;
+      background: #12323b;
+      clip-path: polygon(50% 0, 100% 35%, 50% 70%, 0 35%);
+      margin-bottom: 8px;
+    }
+
+    .play {
+      width: 55px;
+      height: 38px;
+      background: #1198a4;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .play::after {
+      content: "";
+      position: absolute;
+      left: 21px;
+      top: 10px;
+      border-left: 14px solid white;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+    }
+
+    .stand {
+      width: 75px;
+      height: 12px;
+      background: #12323b;
+      position: absolute;
+      bottom: -24px;
+      border-radius: 3px;
+    }
+
+    .plant {
+      width: 42px;
+      height: 72px;
+      position: relative;
+    }
+
+    .plant::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 9px;
+      width: 26px;
+      height: 32px;
+      background: #e4a83b;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .plant::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10px;
+      width: 45px;
+      height: 65px;
+      background: #4aa56b;
+      clip-path: polygon(38% 55%, 70% 0, 67% 45%, 100% 24%, 76% 66%, 95% 82%, 50% 75%, 32% 100%);
+      opacity: 0.9;
+    }
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin: 12px 0 12px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      min-height: 108px;
+      border: 1px solid #dde4e8;
+      border-radius: 10px;
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      align-items: center;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .icon-box {
+      width: 62px;
+      height: 62px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 31px;
+    }
+
+    .green { background: #d9f4ee; color: #00796b; }
+    .purple { background: #e8defa; color: #6045a8; }
+    .blue { background: #dff0fb; color: #0b83bf; }
+    .yellow { background: #f8edc6; color: #c48a00; }
+    .pink { background: #fde0e4; color: #d4485f; }
+    .aqua { background: #d9f1ef; color: #00796b; }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 7px;
+      line-height: 1.2;
+    }
+
+    .card p {
+      font-size: 12px;
+      line-height: 1.45;
+      color: #252f3b;
+    }
+
+    .side-card {
+      border: 1px solid #dde4e8;
+      border-radius: 10px;
+      background: white;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    .side-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .side-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .see-all,
+    .link {
+      color: #006c73;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .announcement {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      margin-bottom: 22px;
+      align-items: start;
+    }
+
+    .announcement .megaphone {
+      color: #00727a;
+      font-size: 25px;
+    }
+
+    .announcement h4 {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      font-size: 12px;
+      color: #667085;
+    }
+
+    .add {
+      color: #006c73;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .side-list {
+      list-style: none;
+    }
+
+    .side-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #006c73;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .side-list span {
+      width: 18px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .recent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #dde4e8;
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 11px 14px;
+      border-bottom: 1px solid #e6ecef;
+      text-align: left;
+    }
+
+    th {
+      background: #fbfcfd;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1000px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-art {
+        border-left: none;
+        margin-top: 22px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        grid-template-columns: 72px 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="main-content">
+      <div class="hero">
+        <div>
+          <h4>Welcome to the</h4>
+          <h1>RCM Training Center</h1>
+          <p>Your one-stop destination for learning, resources, SOPs, and training to support your success.</p>
+        </div>
+        <div class="hero-art">
+          <div class="books">
+            <div class="book"></div>
+            <div class="book"></div>
+            <div class="book"></div>
+          </div>
+          <div class="monitor">
+            <div class="cap"></div>
+            <div class="play"></div>
+            <div class="stand"></div>
+          </div>
+          <div class="plant"></div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Training Categories</h2>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon-box green">👥</div>
+          <div><h3>New Employee Training</h3><p>Onboarding, overview of RCM processes, tools, and expectations.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box purple">🪪</div>
+          <div><h3>Credentialing</h3><p>Provider enrollment, credentialing process, and maintenance.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box blue">🛡️</div>
+          <div><h3>VOB (Verification of Benefits)</h3><p>Insurance verification and benefit eligibility process.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box green">📄</div>
+          <div><h3>Billing</h3><p>Charge entry, claim creation, submission and follow-up.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box yellow">💲</div>
+          <div><h3>Payment Posting</h3><p>Posting payments, adjustments and reconciliation.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box pink">👤</div>
+          <div><h3>Accounts Receivable (AR)</h3><p>A/R follow-up, denial management and collections.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box pink">👤</div>
+          <div><h3>Patient Handling</h3><p>Patient communication, demographics, consent and support.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box aqua">🔒</div>
+          <div><h3>HIPAA & Compliance</h3><p>HIPAA policies, privacy, security and regulatory compliance.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box blue">📊</div>
+          <div><h3>QA & Reporting</h3><p>Quality assurance, performance metrics and reporting.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box purple">📖</div>
+          <div><h3>SOP Library</h3><p>Standard Operating Procedures and process documents.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box blue">▶️</div>
+          <div><h3>Video Training</h3><p>Step-by-step video tutorials and recorded sessions.</p></div>
+        </div>
+
+        <div class="card">
+          <div class="icon-box aqua">📃</div>
+          <div><h3>Templates & Downloads</h3><p>Useful templates, checklists and job aids.</p></div>
+        </div>
+      </div>
+
+      <div class="recent-header">
+        <h2 class="section-title">Recently Updated</h2>
+        <a class="see-all" href="#">See all</a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Modified</th>
+            <th>Modified By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>📘 SOP – Payment Posting Process.docx</td>
+            <td>Payment Posting</td>
+            <td>May 15, 2024</td>
+            <td>Training Admin</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside class="sidebar">
+      <div class="side-card">
+        <div class="side-card-header">
+          <h2>Announcements</h2>
+          <a href="#" class="see-all">See all</a>
+        </div>
+
+        <div class="announcement">
+          <div class="megaphone">📣</div>
+          <div><h4>New Training: Denial Management Best Practices</h4><p class="date">May 20</p></div>
+        </div>
+
+        <div class="announcement">
+          <div class="megaphone">📣</div>
+          <div><h4>Reminder: Complete HIPAA Training by May 31</h4><p class="date">May 18</p></div>
+        </div>
+
+        <div class="announcement">
+          <div class="megaphone">📣</div>
+          <div><h4>Updated SOP: Payment Posting Process</h4><p class="date">May 15</p></div>
+        </div>
+
+        <p class="add">＋ Add announcement</p>
+      </div>
+
+      <div class="side-card">
+        <h2 style="margin-bottom:18px;">Quick Links</h2>
+        <ul class="side-list">
+          <li><span>▣</span> RCM Process Map</li>
+          <li><span>▤</span> Policy & Procedure Manual</li>
+          <li><span>🛡</span> Compliance Center</li>
+          <li><span>📋</span> Forms & Checklists</li>
+          <li><span>🗓</span> Training Calendar</li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h2 style="margin-bottom:18px;">Help & Support</h2>
+        <ul class="side-list">
+          <li><span>?</span> FAQs</li>
+          <li><span>🎧</span> Submit a Support Ticket</li>
+          <li><span>✉</span> Contact Training Team</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
