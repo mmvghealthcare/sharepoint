@@ -1,515 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RCM Training Center</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RCM Training Center</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#f4f6f9;
+    color:#222;
+}
+
+.page-container{
+    max-width:1400px;
+    margin:20px auto;
+    padding:0 15px;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns: 2.4fr 1fr;
+    gap:20px;
+}
+
+.hero-banner{
+    background:linear-gradient(135deg,#006c70,#007b80);
+    border-radius:10px;
+    color:#fff;
+    padding:35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    min-height:220px;
+}
+
+.hero-left h1{
+    font-size:52px;
+    line-height:1.1;
+    margin-bottom:18px;
+}
+
+.hero-left p{
+    font-size:20px;
+    line-height:1.6;
+    max-width:650px;
+}
+
+.hero-right{
+    width:320px;
+    text-align:center;
+}
+
+.hero-right img{
+    width:100%;
+    max-width:250px;
+}
+
+.section-title{
+    font-size:28px;
+    font-weight:700;
+    margin:30px 0 18px;
+}
+
+.training-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #e2e6ea;
+    border-radius:12px;
+    padding:18px;
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    transition:0.25s;
+    text-decoration:none;
+    color:#222;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+.icon{
+    width:62px;
+    height:62px;
+    border-radius:14px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:700;
+}
+
+.icon.green{ background:#dff5ee; color:#158466; }
+.icon.purple{ background:#efe8ff; color:#6d49cc; }
+.icon.blue{ background:#e5f3ff; color:#1877d3; }
+.icon.gold{ background:#fff1cf; color:#c28b00; }
+.icon.orange{ background:#ffe8e1; color:#dc5b2c; }
+.icon.red{ background:#ffe4e8; color:#d94868; }
+.icon.teal{ background:#ddf6f4; color:#007c7c; }
+
+.card h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.card p{
+    font-size:14px;
+    line-height:1.6;
+    color:#555;
+}
+
+.sidebar-box{
+    background:#fff;
+    border:1px solid #e2e6ea;
+    border-radius:12px;
+    padding:24px;
+    margin-bottom:20px;
+}
+
+.sidebar-box h3{
+    font-size:24px;
+    margin-bottom:18px;
+}
+
+.list-item{
+    margin-bottom:18px;
+}
+
+.list-item strong{
+    display:block;
+    font-size:15px;
+    margin-bottom:6px;
+}
+
+.list-item span{
+    color:#777;
+    font-size:13px;
+}
+
+.quick-links a,
+.help-links a{
+    display:block;
+    text-decoration:none;
+    color:#0078d4;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+.quick-links a:hover,
+.help-links a:hover{
+    text-decoration:underline;
+}
+
+.table-wrapper{
+    margin-top:35px;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #e2e6ea;
+}
+
+.table-header{
+    padding:18px 22px;
+    font-size:24px;
+    font-weight:700;
+    border-bottom:1px solid #e5e5e5;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:16px 20px;
+    text-align:left;
+    border-bottom:1px solid #f0f0f0;
+    font-size:14px;
+}
+
+th{
+    background:#fafafa;
+    font-weight:600;
+}
+
+@media(max-width:1100px){
+
+    .layout{
+        grid-template-columns:1fr;
     }
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #ffffff;
-      color: #1f2933;
-      font-size: 14px;
+    .training-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .page {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 18px;
-      padding: 10px 18px 20px;
-      max-width: 1280px;
-      margin: auto;
+}
+
+@media(max-width:768px){
+
+    .hero-banner{
+        flex-direction:column;
+        text-align:center;
+        gap:20px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #00726c, #005e63);
-      border-radius: 7px;
-      color: white;
-      min-height: 215px;
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      align-items: center;
-      overflow: hidden;
-      padding: 32px 40px;
-      margin-bottom: 18px;
+    .hero-left h1{
+        font-size:38px;
     }
 
-    .hero h4 {
-      font-size: 25px;
-      font-weight: 600;
-      margin-bottom: 6px;
+    .training-grid{
+        grid-template-columns:1fr;
     }
 
-    .hero h1 {
-      font-size: 52px;
-      line-height: 1.05;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
+}
 
-    .hero p {
-      font-size: 16px;
-      line-height: 1.6;
-      max-width: 520px;
-    }
-
-    .hero-art {
-      border-left: 1px solid rgba(255,255,255,0.45);
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 22px;
-    }
-
-    .books {
-      position: relative;
-      width: 95px;
-      height: 65px;
-    }
-
-    .book {
-      height: 15px;
-      border-radius: 4px;
-      background: white;
-      margin: 7px 0;
-      box-shadow: 0 4px 0 rgba(0,0,0,0.15);
-    }
-
-    .monitor {
-      width: 170px;
-      height: 112px;
-      background: #dff4f8;
-      border: 10px solid #12323b;
-      border-radius: 8px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    .cap {
-      width: 76px;
-      height: 34px;
-      background: #12323b;
-      clip-path: polygon(50% 0, 100% 35%, 50% 70%, 0 35%);
-      margin-bottom: 8px;
-    }
-
-    .play {
-      width: 55px;
-      height: 38px;
-      background: #1198a4;
-      border-radius: 5px;
-      position: relative;
-    }
-
-    .play::after {
-      content: "";
-      position: absolute;
-      left: 21px;
-      top: 10px;
-      border-left: 14px solid white;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-    }
-
-    .stand {
-      width: 75px;
-      height: 12px;
-      background: #12323b;
-      position: absolute;
-      bottom: -24px;
-      border-radius: 3px;
-    }
-
-    .plant {
-      width: 42px;
-      height: 72px;
-      position: relative;
-    }
-
-    .plant::before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 9px;
-      width: 26px;
-      height: 32px;
-      background: #e4a83b;
-      border-radius: 0 0 6px 6px;
-    }
-
-    .plant::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 10px;
-      width: 45px;
-      height: 65px;
-      background: #4aa56b;
-      clip-path: polygon(38% 55%, 70% 0, 67% 45%, 100% 24%, 76% 66%, 95% 82%, 50% 75%, 32% 100%);
-      opacity: 0.9;
-    }
-
-    .section-title {
-      font-size: 19px;
-      font-weight: 700;
-      margin: 12px 0 12px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .card {
-      min-height: 108px;
-      border: 1px solid #dde4e8;
-      border-radius: 10px;
-      display: grid;
-      grid-template-columns: 82px 1fr;
-      align-items: center;
-      padding: 14px;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-    }
-
-    .icon-box {
-      width: 62px;
-      height: 62px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 31px;
-    }
-
-    .green { background: #d9f4ee; color: #00796b; }
-    .purple { background: #e8defa; color: #6045a8; }
-    .blue { background: #dff0fb; color: #0b83bf; }
-    .yellow { background: #f8edc6; color: #c48a00; }
-    .pink { background: #fde0e4; color: #d4485f; }
-    .aqua { background: #d9f1ef; color: #00796b; }
-
-    .card h3 {
-      font-size: 15px;
-      margin-bottom: 7px;
-      line-height: 1.2;
-    }
-
-    .card p {
-      font-size: 12px;
-      line-height: 1.45;
-      color: #252f3b;
-    }
-
-    .side-card {
-      border: 1px solid #dde4e8;
-      border-radius: 10px;
-      background: white;
-      padding: 20px;
-      margin-bottom: 14px;
-    }
-
-    .side-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .side-card h2 {
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .see-all,
-    .link {
-      color: #006c73;
-      font-size: 13px;
-      text-decoration: none;
-    }
-
-    .announcement {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 12px;
-      margin-bottom: 22px;
-      align-items: start;
-    }
-
-    .announcement .megaphone {
-      color: #00727a;
-      font-size: 25px;
-    }
-
-    .announcement h4 {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.35;
-      margin-bottom: 5px;
-    }
-
-    .date {
-      font-size: 12px;
-      color: #667085;
-    }
-
-    .add {
-      color: #006c73;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-
-    .side-list {
-      list-style: none;
-    }
-
-    .side-list li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #006c73;
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-
-    .side-list span {
-      width: 18px;
-      text-align: center;
-      font-size: 16px;
-    }
-
-    .recent-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 14px;
-      margin-bottom: 8px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border: 1px solid #dde4e8;
-      border-radius: 8px;
-      overflow: hidden;
-      font-size: 13px;
-    }
-
-    th, td {
-      padding: 11px 14px;
-      border-bottom: 1px solid #e6ecef;
-      text-align: left;
-    }
-
-    th {
-      background: #fbfcfd;
-      font-weight: 600;
-    }
-
-    @media (max-width: 1000px) {
-      .page {
-        grid-template-columns: 1fr;
-      }
-
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 650px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 24px;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .hero-art {
-        border-left: none;
-        margin-top: 22px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .card {
-        grid-template-columns: 72px 1fr;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <main class="page">
-    <section class="main-content">
-      <div class="hero">
-        <div>
-          <h4>Welcome to the</h4>
-          <h1>RCM Training Center</h1>
-          <p>Your one-stop destination for learning, resources, SOPs, and training to support your success.</p>
-        </div>
-        <div class="hero-art">
-          <div class="books">
-            <div class="book"></div>
-            <div class="book"></div>
-            <div class="book"></div>
-          </div>
-          <div class="monitor">
-            <div class="cap"></div>
-            <div class="play"></div>
-            <div class="stand"></div>
-          </div>
-          <div class="plant"></div>
-        </div>
-      </div>
 
-      <h2 class="section-title">Training Categories</h2>
+<div class="page-container">
 
-      <div class="cards">
-        <div class="card">
-          <div class="icon-box green">👥</div>
-          <div><h3>New Employee Training</h3><p>Onboarding, overview of RCM processes, tools, and expectations.</p></div>
-        </div>
+<div class="layout">
 
-        <a class="card card-link" href="https://mmvghealth.sharepoint.com/SitePages/Cred.aspx">
-          <div class="icon-box purple">🪪</div>
-          <div><h3>Credentialing</h3><p>Provider enrollment, credentialing process, and maintenance.</p></div>
-        </a>
+<!-- LEFT CONTENT -->
+<div>
 
-        <div class="card">
-          <div class="icon-box blue">🛡️</div>
-          <div><h3>VOB (Verification of Benefits)</h3><p>Insurance verification and benefit eligibility process.</p></div>
-        </div>
+<div class="hero-banner">
 
-        <div class="card">
-          <div class="icon-box green">📄</div>
-          <div><h3>Billing</h3><p>Charge entry, claim creation, submission and follow-up.</p></div>
-        </div>
+<div class="hero-left">
+<h1>Welcome to the<br>RCM Training Center</h1>
 
-        <div class="card">
-          <div class="icon-box yellow">💲</div>
-          <div><h3>Payment Posting</h3><p>Posting payments, adjustments and reconciliation.</p></div>
-        </div>
+<p>
+Your one-stop destination for learning, resources, SOPs,
+and training to support your success.
+</p>
+</div>
 
-        <div class="card">
-          <div class="icon-box pink">👤</div>
-          <div><h3>Accounts Receivable (AR)</h3><p>A/R follow-up, denial management and collections.</p></div>
-        </div>
+<div class="hero-right">
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="">
+</div>
 
-        <div class="card">
-          <div class="icon-box pink">👤</div>
-          <div><h3>Patient Handling</h3><p>Patient communication, demographics, consent and support.</p></div>
-        </div>
+</div>
 
-        <div class="card">
-          <div class="icon-box aqua">🔒</div>
-          <div><h3>HIPAA & Compliance</h3><p>HIPAA policies, privacy, security and regulatory compliance.</p></div>
-        </div>
+<h2 class="section-title">Training Categories</h2>
 
-        <div class="card">
-          <div class="icon-box blue">📊</div>
-          <div><h3>QA & Reporting</h3><p>Quality assurance, performance metrics and reporting.</p></div>
-        </div>
+<div class="training-grid">
 
-        <div class="card">
-          <div class="icon-box purple">📖</div>
-          <div><h3>SOP Library</h3><p>Standard Operating Procedures and process documents.</p></div>
-        </div>
+<a class="card" href="https://mmvghealth.sharepoint.com/SitePages/New-Employee-Training.aspx">
 
-        <div class="card">
-          <div class="icon-box blue">▶️</div>
-          <div><h3>Video Training</h3><p>Step-by-step video tutorials and recorded sessions.</p></div>
-        </div>
+<div class="icon green">👥</div>
 
-        <div class="card">
-          <div class="icon-box aqua">📃</div>
-          <div><h3>Templates & Downloads</h3><p>Useful templates, checklists and job aids.</p></div>
-        </div>
-      </div>
+<div>
+<h3>New Employee Training</h3>
+<p>
+Onboarding, overview of RCM processes,
+tools, and expectations.
+</p>
+</div>
 
-      <div class="recent-header">
-        <h2 class="section-title">Recently Updated</h2>
-        <a class="see-all" href="#">See all</a>
-      </div>
+</a>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Modified</th>
-            <th>Modified By</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>📘 SOP – Payment Posting Process.docx</td>
-            <td>Payment Posting</td>
-            <td>May 15, 2024</td>
-            <td>Training Admin</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+<a class="card" href="https://mmvghealth.sharepoint.com/SitePages/Cred.aspx">
 
-    <aside class="sidebar">
-      <div class="side-card">
-        <div class="side-card-header">
-          <h2>Announcements</h2>
-          <a href="#" class="see-all">See all</a>
-        </div>
+<div class="icon purple">🪪</div>
 
-        <div class="announcement">
-          <div class="megaphone">📣</div>
-          <div><h4>New Training: Denial Management Best Practices</h4><p class="date">May 20</p></div>
-        </div>
+<div>
+<h3>Credentialing</h3>
+<p>
+Provider enrollment, credentialing process,
+and maintenance.
+</p>
+</div>
 
-        <div class="announcement">
-          <div class="megaphone">📣</div>
-          <div><h4>Reminder: Complete HIPAA Training by May 31</h4><p class="date">May 18</p></div>
-        </div>
+</a>
 
-        <div class="announcement">
-          <div class="megaphone">📣</div>
-          <div><h4>Updated SOP: Payment Posting Process</h4><p class="date">May 15</p></div>
-        </div>
+<div class="card">
 
-        <p class="add">＋ Add announcement</p>
-      </div>
+<div class="icon blue">✔</div>
 
-      <div class="side-card">
-        <h2 style="margin-bottom:18px;">Quick Links</h2>
-        <ul class="side-list">
-          <li><span>▣</span> RCM Process Map</li>
-          <li><span>▤</span> Policy & Procedure Manual</li>
-          <li><span>🛡</span> Compliance Center</li>
-          <li><span>📋</span> Forms & Checklists</li>
-          <li><span>🗓</span> Training Calendar</li>
-        </ul>
-      </div>
+<div>
+<h3>VOB (Verification of Benefits)</h3>
+<p>
+Insurance verification and benefit eligibility process.
+</p>
+</div>
 
-      <div class="side-card">
-        <h2 style="margin-bottom:18px;">Help & Support</h2>
-        <ul class="side-list">
-          <li><span>?</span> FAQs</li>
-          <li><span>🎧</span> Submit a Support Ticket</li>
-          <li><span>✉</span> Contact Training Team</li>
-        </ul>
-      </div>
-    </aside>
-  </main>
+</div>
+
+<a class="card" href="https://mmvghealth.sharepoint.com/SitePages/Biling.aspx">
+
+<div class="icon green">🧾</div>
+
+<div>
+<h3>Billing</h3>
+<p>
+Charge entry, claim creation,
+submission and follow-up.
+</p>
+</div>
+
+</a>
+
+<div class="card">
+
+<div class="icon gold">💰</div>
+
+<div>
+<h3>Payment Posting</h3>
+<p>
+Posting payments, adjustments and reconciliation.
+</p>
+</div>
+
+</div>
+
+<a class="card" href="https://mmvghealth.sharepoint.com/SitePages/AR.aspx">
+
+<div class="icon orange">💵</div>
+
+<div>
+<h3>Accounts Receivable (AR)</h3>
+<p>
+A/R follow-up, denial management and collections.
+</p>
+</div>
+
+</a>
+
+<div class="card">
+
+<div class="icon red">👤</div>
+
+<div>
+<h3>Patient Handling</h3>
+<p>
+Patient communication, demographics,
+consent and support.
+</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon teal">🔒</div>
+
+<div>
+<h3>HIPAA & Compliance</h3>
+<p>
+HIPAA policies, privacy, security and regulatory compliance.
+</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon blue">📊</div>
+
+<div>
+<h3>QA & Reporting</h3>
+<p>
+Quality assurance, performance metrics and reporting.
+</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon purple">📘</div>
+
+<div>
+<h3>SOP Library</h3>
+<p>
+Standard Operating Procedures and process documents.
+</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon blue">▶</div>
+
+<div>
+<h3>Video Training</h3>
+<p>
+Step-by-step video tutorials and recorded sessions.
+</p>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="icon teal">💻</div>
+
+<div>
+<h3>EHR Trainings</h3>
+<p>
+EHR navigation, workflow guidance,
+and system usage tutorials.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<div class="table-header">
+Recently Updated
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Category</th>
+<th>Modified</th>
+<th>Modified By</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>SOP – Payment Posting Process.docx</td>
+<td>Payment Posting</td>
+<td>May 15, 2024</td>
+<td>Training Admin</td>
+</tr>
+
+<tr>
+<td>Credentialing Workflow.pdf</td>
+<td>Credentialing</td>
+<td>May 12, 2024</td>
+<td>RCM Team Lead</td>
+</tr>
+
+<tr>
+<td>AR Follow-up Guide.docx</td>
+<td>AR</td>
+<td>May 10, 2024</td>
+<td>Operations Team</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- RIGHT SIDEBAR -->
+<div>
+
+<div class="sidebar-box">
+
+<h3>Announcements</h3>
+
+<div class="list-item">
+<strong>New Training: Denial Management Best Practices</strong>
+<span>May 20</span>
+</div>
+
+<div class="list-item">
+<strong>Reminder: Complete HIPAA Training by May 31</strong>
+<span>May 18</span>
+</div>
+
+<div class="list-item">
+<strong>Updated SOP: Payment Posting Process</strong>
+<span>May 15</span>
+</div>
+
+</div>
+
+<div class="sidebar-box">
+
+<h3>Quick Links</h3>
+
+<div class="quick-links">
+<a href="#">RCM Process Map</a>
+<a href="#">Policy & Procedure Manual</a>
+<a href="#">Compliance Center</a>
+<a href="#">Forms & Checklists</a>
+<a href="#">Training Calendar</a>
+</div>
+
+</div>
+
+<div class="sidebar-box">
+
+<h3>Help & Support</h3>
+
+<div class="help-links">
+<a href="#">FAQs</a>
+<a href="#">Submit a Support Ticket</a>
+<a href="#">Contact Training Team</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
 </html>
